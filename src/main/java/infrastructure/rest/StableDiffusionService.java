@@ -22,14 +22,14 @@ public class StableDiffusionService {
     }
 
     @Transactional
-    public Uni<String> generate(ProfilePhoto profilePhoto) throws IOException {
+    public Uni<String> generate(ProfilePhoto profilePhoto, String positivePrompt, String negativePrompt) throws IOException {
         var fileContent = FileUtils.readFileToByteArray(new File(profilePhoto.originalPhoto()));
         var encodedString = Base64.getEncoder().encodeToString(fileContent);
 
         return stableDiffusion.img2img(new StableDiffusion.Request(
                         Collections.singletonList(encodedString),
-                        "turn me into an elden ring character",
-                        "cute",
+                        positivePrompt,
+                        negativePrompt,
                         "Euler a",
                         -1,
                         0.9,

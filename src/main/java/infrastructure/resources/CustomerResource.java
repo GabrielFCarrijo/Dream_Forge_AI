@@ -46,7 +46,12 @@ public class CustomerResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @ResponseStatus(RestResponse.StatusCode.ACCEPTED)
     public void persistProfilePhoto(@PathParam("id") String id,
-                                    @RestForm("photo") FileUpload fileUpload) {
-        service.persistProfilePhoto(id, ProfilePhoto.create(fileUpload));
+                                    @RestForm("photo") FileUpload fileUpload,
+                                    @RestForm("positivePrompt") String positivePrompt,
+                                    @RestForm("negativePrompt") String negativePrompt) {
+        ProfilePhoto profilePhoto = ProfilePhoto.create(fileUpload);
+
+        service.persistProfilePhoto(id, profilePhoto, positivePrompt, negativePrompt);
     }
+
 }

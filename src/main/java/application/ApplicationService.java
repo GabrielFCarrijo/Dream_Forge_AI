@@ -27,7 +27,7 @@ public class ApplicationService {
         return Customer.fromDomain(customerReadService.findById(customerId));
     }
 
-    public void persistProfilePhoto(String customerId, ProfilePhoto dto) {
-        profilePhotoCreateService.save(customerId, dto.toDomain());
+    public void persistProfilePhoto(String customerId, ProfilePhoto dto, String positivePrompt, String negativePrompt) {
+        profilePhotoCreateService.save(customerId, dto.toDomain(), positivePrompt, negativePrompt);
     }
 }

@@ -26,10 +26,10 @@ public interface StableDiffusion {
             Integer steps,
             Integer width,
             Integer height) {
-        public Request(String initImage) {
+        public Request(String initImage, String prompt, String negativePrompt) {
             this(List.of(initImage),
-                    "turn me into an elden ring character",
-                    "cute",
+                    prompt,
+                    negativePrompt,
                     "Euler a",
                     -1,
                     0.9,

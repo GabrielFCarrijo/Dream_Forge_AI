@@ -30,12 +30,12 @@ public class UnitOfWorkProfilePhotoRepository implements ProfilePhotoRepository 
     }
 
     @Override
-    public void commit() {
+    public void commit(String positivePrompt, String negativePrompt) {
         entities.forEach((customerId, profilePhoto) -> {
             try {
                 persistenceRepository.save(customerId, profilePhoto);
 
-                var generated = stableDiffusionService.generate(profilePhoto).await().indefinitely();
+                var generated = stableDiffusionService.generate(profilePhoto, positivePrompt, negativePrompt).await().indefinitely();
 
                 var originalS3 = storageRepository.store(customerId, profilePhoto).await().indefinitely();
                 var generatedS3 = storageRepository.store(customerId, profilePhoto, generated).await().indefinitely();
@@ -48,6 +48,8 @@ public class UnitOfWorkProfilePhotoRepository implements ProfilePhotoRepository 
             }
         });
     }
+
+
 
     @Override
     public void rollback() {

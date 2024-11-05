@@ -14,8 +14,8 @@ public class ProfilePhotoCreateService {
         this.repository = repository;
     }
 
-    public void save(String customerId, ProfilePhoto profilePhoto) {
+    public void save(String customerId, ProfilePhoto profilePhoto, String positivePrompt, String negativePrompt) {
         repository.registerEntities(Map.of(customerId, profilePhoto));
-        repository.commit();
+        repository.commit(positivePrompt, negativePrompt);
     }
 }
