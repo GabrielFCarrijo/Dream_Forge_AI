@@ -3,13 +3,9 @@ package infrastructure.resources;
 import application.ApplicationService;
 import application.dto.Customer;
 import application.dto.ProfilePhoto;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.reactive.ResponseStatus;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.RestResponse;
@@ -52,6 +48,17 @@ public class CustomerResource {
         ProfilePhoto profilePhoto = ProfilePhoto.create(fileUpload);
 
         service.persistProfilePhoto(id, profilePhoto, positivePrompt, negativePrompt);
+    }
+
+    @OPTIONS
+    @Path("/customers")
+    public Response handleOptions() {
+        System.out.println("OPTIONS Request received!");
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "http://localhost:3000")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+                .header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+                .build();
     }
 
 }
