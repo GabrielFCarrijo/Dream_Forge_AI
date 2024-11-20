@@ -8,6 +8,14 @@ CREATE TABLE IF NOT EXISTS profile_photos (
   PRIMARY KEY (customer_id, id)
 );
 
+create table usuarios (
+    id bigint not null auto_increment,
+    email varchar(255) not null,
+    login varchar(255) not null,
+    senha varchar(255) not null,
+    primary key (id)
+) engine=InnoDB;
+
 INSERT INTO profile_photos (customer_id, id, original_photo, generated_photo) VALUES
 ("customer-1", "06043448-f8be-11ed-be56-0242ac120002", "customer-1-original-photo-1-path", "customer-1-generated-photo-1-path"),
 ("customer-1", "0c146362-f8be-11ed-be56-0242ac120002", "customer-1-original-photo-2-path", "customer-1-generated-photo-2-path"),
